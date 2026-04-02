@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Student Assistant Hours Calculator</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background: linear-gradient(135deg, #0077b6, #00b4d8);
+      color: #333;
+      margin: 0;
+      padding: 0;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+    }
+
+    .container {
+      background: white;
+      padding: 30px;
+      border-radius: 15px;
+      width: 350px;
+      box-shadow: 0 10px 25px rgba(0,0,0,0.2);
+      text-align: center;
+    }
+
+    h1 {
+      font-size: 20px;
+      margin-bottom: 20px;
+      color: #0077b6;
+    }
+
+    input {
+      width: 100%;
+      padding: 10px;
+      margin: 10px 0;
+      border-radius: 8px;
+      border: 1px solid #ccc;
+    }
+
+    button {
+      width: 100%;
+      padding: 12px;
+      background: #0077b6;
+      color: white;
+      border: none;
+      border-radius: 8px;
+      cursor: pointer;
+      font-size: 16px;
+      margin-top: 10px;
+    }
+
+    button:hover {
+      background: #023e8a;
+    }
+
+    .result {
+      margin-top: 20px;
+      font-weight: bold;
+    }
+
+    .warning {
+      color: red;
+      margin-top: 10px;
+    }
+  </style>
+</head>
+<body>
+
+  <div class="container">
+    <h1>CSULB Hours Calculator</h1>
+
+    <input type="number" id="award" placeholder="Total Award ($)">
+    <input type="number" id="wage" placeholder="Hourly Wage ($/hr)">
+    <input type="number" id="worked" placeholder="Hours Worked">
+
+    <button onclick="calculate()">Calculate</button>
+
+    <div class="result" id="output"></div>
+    <div class="warning" id="warning"></div>
+  </div>
+
+  <script>
+    function calculate() {
+      const award = parseFloat(document.getElementById('award').value);
+      const wage = parseFloat(document.getElementById('wage').value);
+      const worked = parseFloat(document.getElementById('worked').value);
+
+      if (!award || !wage) {
+        alert("Please enter award and wage");
+        return;
+      }
+
+      const totalHours = award / wage;
+      const remaining = totalHours - (worked || 0);
+
+      document.getElementById('output').innerHTML = 
+        `Total Hours: ${totalHours.toFixed(2)} hrs <br>
+         Remaining Hours: ${remaining.toFixed(2)} hrs`;
+
+      if (remaining < 0) {
+        document.getElementById('warning').innerText = "You exceeded your allowed hours!";
+      } else {
+        document.getElementById('warning').innerText = "";
+      }
+    }
+  </script>
+
+</body>
+</html>
